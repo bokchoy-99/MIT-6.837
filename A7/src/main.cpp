@@ -234,3 +234,18 @@ int main(int argc, char *argv[])
 // main -input ../assets/scene7_06_faceted_gem.txt -size 200 200 -output output7_06a.tga -shadows -shade_back -bounces 5 -weight 0.01 -grid 20 20 20 
 // main -input ../assets/scene7_06_faceted_gem.txt -size 200 200 -output output7_06b.tga -shadows -shade_back -bounces 5 -weight 0.01 -grid 20 20 20 -jittered_samples 9 -gaussian_filter 0.4
 // main -input ../assets/scene7_06_faceted_gem.txt -size 200 200 -output output7_06b_test.tga -shadows -shade_back -bounces 5 -weight 0.01 -grid 20 20 20 -jittered_samples 9 -gaussian_filter 0.4
+
+// main -input ../assets/scene8_06_torus_low.txt -gui -size 300 300
+// main -input ../assets/scene8_06_torus_high.txt -gui -size 300 300
+
+// main -input ../assets/scene8_07_vase_low.txt -gui -size 300 300
+// main -input ../assets/scene8_07_vase_high.txt -gui -size 300 300
+
+// main -input ../assets/scene8_08_bezier_patch_low.txt -gui -size 300 300
+// main -input ../assets/scene8_08_bezier_patch_med.txt -gui -size 300 300
+// main -input ../assets/scene8_08_bezier_patch_high.txt -gui -size 300 300
+
+// main -input ../assets/scene8_09_teapot_low.txt -gui -size 300 300
+// main -input ../assets/scene8_09_teapot_high.txt -gui -size 300 300
+
+

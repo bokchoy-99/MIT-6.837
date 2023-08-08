@@ -29,7 +29,7 @@ public:
     vector<CurveWindow> getWindows();
 
     void Paint(ArgParser *args);
-
+    
     virtual void makeWindows() = 0;
 };
 
@@ -70,3 +70,4 @@ public:
 };
 
 #endif
+

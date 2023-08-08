@@ -42,4 +42,4 @@ public:
     }
 };
 
-#endif // ASSIGNMENTS_SPLINE_H
+#endif 

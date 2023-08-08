@@ -1,9 +1,5 @@
-//
-// Created by Nycshisan on 2018/8/4.
-//
-
-#ifndef ASSIGNMENTS_SURFACE_H
-#define ASSIGNMENTS_SURFACE_H
+#ifndef _SURFACE_H
+#define _SURFACE_H
 
 #include <memory>
 
@@ -41,7 +37,7 @@ public:
 
 class BezierPatch : public Surface
 {
-    std::shared_ptr<BezierCurve> _ctrlCurves;
+    std::shared_ptr<BezierCurve> ctrlCurves;
 
 public:
     BezierPatch();

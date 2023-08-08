@@ -92,7 +92,7 @@ BezierCurve::BezierCurve(int _nVertices) : Curve(_nVertices)
 }
 
 void BezierCurve::makeWindows()
-{ 
+{
     int num_win = (nVertices - 1) / 3;
     windows.resize(static_cast<unsigned long>(num_win));
     for (int i = 0; i < num_win; i++)
@@ -104,7 +104,35 @@ void BezierCurve::makeWindows()
 
 BSplineCurve *BezierCurve::toBSpline()
 {
-    // ???
+    assert(nVertices == 4);
+
+    makeWindows();
+
+    auto result = new BSplineCurve(nVertices);
+
+    auto &win = windows[0];
+    auto BZG = win.G;
+    auto BZB = *(this->getB());
+    auto BSB = *(result->getB());
+    // 求逆矩阵
+    assert(BSB.Inverse(1e-5f));
+
+    // Q(t) = BZG * BZB * T = BSG * BSB * T
+    auto BSG = BZG * BZB * BSB;
+
+    for (int i = 0; i < 4; i++)
+    {
+        float v[4];
+        for (int j = 0; j < 4; j++)
+        {
+            v[j] = BSG.Get(i, j);
+        }
+        auto point = Vec4f(v[0], v[1], v[2], v[3]);
+        point.DivideByW();
+        result->set(i, point.xyz());
+    }
+
+    return result;
 }
 
 void BezierCurve::OutputBezier(FILE *file)
@@ -146,7 +174,32 @@ void BSplineCurve::makeWindows()
 
 BezierCurve *BSplineCurve::toBezier()
 {
-    // ???
+    assert(nVertices == 4);
+
+    makeWindows();
+    auto result = new BezierCurve(nVertices);
+    auto &win = windows[0];
+    auto BSG = win.G;
+    auto BSB = *(this->getB());
+    auto BZB = *(result->getB());
+    // 求逆矩阵
+    assert(BZB.Inverse(1e-5f));
+
+    // Q(t) = BZG * BZB * T = BSG * BSB * T
+    auto BZG = BSG * BSB * BZB;
+
+    for (int i = 0; i < 4; i++)
+    {
+        float v[4];
+        for (int j = 0; j < 4; j++)
+        {
+            v[j] = BSG.Get(i, j);
+        }
+        auto point = Vec4f(v[0], v[1], v[2], v[3]);
+        point.DivideByW();
+        result->set(i, point.xyz());
+    }
+    return result;
 }
 
 void BSplineCurve::OutputBezier(FILE *file)

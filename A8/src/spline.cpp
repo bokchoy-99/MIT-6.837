@@ -2,7 +2,7 @@
 
 Spline::Spline(int _nVertices)
 {
-    nVertices = nVertices;
+    nVertices = _nVertices;
     ctrlPoints.resize(static_cast<unsigned long>(nVertices));
 }
 
@@ -36,3 +36,4 @@ void Spline::deleteControlPoint(int selectedPoint)
     }
     ctrlPoints.resize(static_cast<unsigned long>(nVertices));
 }
+

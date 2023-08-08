@@ -65,13 +65,11 @@ void GLCanvas::display(void)
     gluLookAt(0, 0, 10,
               0, 0, 0,
               0, 1, 0);
-
     // Draw the splines
     for (int i = 0; i < splines->getNumSplines(); i++)
     {
         splines->getSpline(i)->Paint(args);
     }
-
     glutSwapBuffers();
 }
 
