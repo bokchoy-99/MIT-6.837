@@ -248,4 +248,6 @@ int main(int argc, char *argv[])
 // main -input ../assets/scene8_09_teapot_low.txt -gui -size 300 300
 // main -input ../assets/scene8_09_teapot_high.txt -gui -size 300 300
 
+// main -input ../assets/scene8_10_transparent_vase.txt -output output8_10.tga -grid 30 30 30 -size 300 300 -bounces 4 -shade_back -jittered_samples 9 -tent_filter 1.0 -shadows
+// main -input ../assets/scene8_11_reflective_teapot.txt -output output8_11.tga -grid 50 30 30 -size 300 300 -bounces 4 -shade_back -jittered_samples 9 -tent_filter 1.0 -shadows
 

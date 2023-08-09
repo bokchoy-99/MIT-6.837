@@ -9,17 +9,17 @@
 
 SurfaceOfRevolution::SurfaceOfRevolution(Curve *c) : Surface(c->getNumVertices())
 {
-    _c = std::shared_ptr<Curve>(c);
+    curve = std::shared_ptr<Curve>(c);
 }
 
 void SurfaceOfRevolution::Paint(ArgParser *args)
 {
-    _c->Paint(args);
+    curve->Paint(args);
 }
 
 TriangleMesh *SurfaceOfRevolution::OutputTriangles(ArgParser *args)
 {
-    auto windows = _c->getWindows();
+    auto windows = curve->getWindows();
     auto *net = new TriangleNet(args->curve_tessellation * int(windows.size()), args->revolution_tessellation);
     for (int spinIndex = 0; spinIndex <= args->revolution_tessellation; ++spinIndex)
     {
@@ -33,7 +33,14 @@ TriangleMesh *SurfaceOfRevolution::OutputTriangles(ArgParser *args)
             for (; pointIndex <= args->curve_tessellation; ++pointIndex)
             {
                 auto v = window.getPointAtT(1.f / args->curve_tessellation * pointIndex);
-                v.Set(v.x() * spinCos, v.y(), v.x() * spinSin);
+                // v.Set(v.x() * spinCos, v.y(), v.x() * spinSin);
+                // 根据初始的曲线而定
+                // 绕 y 轴旋转
+                v.Set(v.x() * spinCos + v.z() * spinSin, v.y(), -1.f * v.x() * spinSin + v.z() * spinCos);
+                // // 绕 x 轴旋转
+                // v.Set(v.x(), v.y() * spinCos - v.z() * spinSin, v.y() * spinSin + v.z() * spinCos);
+                // // 绕 z 轴旋转
+                // v.Set(v.x() * spinCos - v.y() * spinSin, v.x() * spinSin + v.z() * spinCos, v.z());
                 net->SetVertex(i++, spinIndex, v);
             }
         }
@@ -45,19 +52,19 @@ TriangleMesh *SurfaceOfRevolution::OutputTriangles(ArgParser *args)
 void SurfaceOfRevolution::OutputBezier(FILE *file)
 {
     fprintf(file, "surface_of_revolution\n");
-    _c->OutputBezier(file);
+    curve->OutputBezier(file);
 }
 
 void SurfaceOfRevolution::OutputBSpline(FILE *file)
 {
     fprintf(file, "surface_of_revolution\n");
-    _c->OutputBSpline(file);
+    curve->OutputBSpline(file);
 }
 
 BezierPatch::BezierPatch() : Surface(16)
 {
     ctrlCurves = std::shared_ptr<BezierCurve>(new BezierCurve[4], [](BezierCurve *p)
-                                               { delete[] p; });
+                                              { delete[] p; });
     for (int i = 0; i < 4; ++i)
     {
         ctrlCurves.get()[i] = BezierCurve(4);
@@ -92,14 +99,15 @@ void BezierPatch::Paint(ArgParser *args)
         bezier.Paint(&fakeArgs);
     }
 
-    //    // draw control points
-    //    glColor3f(1.f, 0.f, 0.f);
-    //    glPointSize(4.f);
-    //    glBegin(GL_POINTS);
-    //    for (auto &p: _ctrlPoints) {
-    //        glVertex3fv(p.GetData());
-    //    }
-    //    glEnd();
+    // // draw control points
+    // glColor3f(1.f, 0.f, 0.f);
+    // glPointSize(4.f);
+    // glBegin(GL_POINTS);
+    // for (auto &p : ctrlPoints)
+    // {
+    //     glVertex3fv(p.GetData());
+    // }
+    // glEnd();
 }
 
 TriangleMesh *BezierPatch::OutputTriangles(ArgParser *args)

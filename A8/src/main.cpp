@@ -59,7 +59,8 @@ int main(int argc, char *argv[])
 // raytracer -input scene8_06_torus_low.txt -gui -size 300 300
 // raytracer -input scene8_06_torus_high.txt -gui -size 300 300
 
-// main -input ../assets/spline8_07_vase.txt -curve_tessellation 4 -output_bspline output8_07_edit.txt -gui
+// main -input ../assets/spline8_07_vase.txt -curve_tessellation 4 -output_bspline output8_07_edit_x.txt -gui
+// main -input ../assets/spline8_07_vase.txt -curve_tessellation 4 -output_bspline output8_07_edit_y.txt -gui
 // main -input ../assets/spline8_07_vase.txt -curve_tessellation 4 -output_bspline output8_07_edit.txt -gui
 // main -input ../assets/output8_07_edit.txt -curve_tessellation 4 -revolution_tessellation 10 -output vase_low.obj
 // main -input ../assets/output8_07_edit.txt -curve_tessellation 10 -revolution_tessellation 60 -output vase_high.obj
